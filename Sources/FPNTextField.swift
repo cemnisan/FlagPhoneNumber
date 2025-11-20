@@ -217,9 +217,9 @@ open class FPNTextField: UITextField {
             NSLayoutConstraint(item: leftBackgroundView, attribute: .top, relatedBy: .equal, toItem: leftView, attribute: .top, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: leftBackgroundView, attribute: .bottom, relatedBy: .equal, toItem: leftView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
             
-			NSLayoutConstraint(item: arrowImageView, attribute: .trailing, relatedBy: .equal, toItem: leftBackgroundView, attribute: .trailing, multiplier: 1, constant: -6).isActive = true
+			NSLayoutConstraint(item: arrowImageView, attribute: .trailing, relatedBy: .equal, toItem: leftBackgroundView, attribute: .trailing, multiplier: 1, constant: -12).isActive = true
 			NSLayoutConstraint(item: arrowImageView, attribute: .centerY, relatedBy: .equal, toItem: leftBackgroundView, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
-			NSLayoutConstraint(item: arrowImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 8).isActive = true
+			NSLayoutConstraint(item: arrowImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 12).isActive = true
 			NSLayoutConstraint(item: arrowImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 6).isActive = true
         
 
