@@ -121,7 +121,7 @@ open class FPNTextField: UITextField {
     
     open lazy var arrowImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "arrow")
+        imageView.image = UIImage(named: "arrow", in: Bundle(for: FPNTextField.self), compatibleWith: nil)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isUserInteractionEnabled = true
