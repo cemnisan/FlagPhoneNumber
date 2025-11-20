@@ -55,7 +55,11 @@ open class FPNTextField: UITextField {
 		}
 	}
     
-    open var shouldAddLeftBackgroundView: Bool?
+    open var shouldAddLeftBackgroundView: Bool? {
+        didSet {
+            setupLeftView()
+        }
+    }
 
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         super.textRect(forBounds: bounds)
@@ -111,6 +115,7 @@ open class FPNTextField: UITextField {
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.isUserInteractionEnabled = true
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -194,12 +199,12 @@ open class FPNTextField: UITextField {
         if shouldAddLeftBackgroundView == true {
             leftView?.addSubview(leftBackgroundView)
             
-            NSLayoutConstraint(item: leftBackgroundView, attribute: .leading, relatedBy: .equal, toItem: leftView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: leftBackgroundView, attribute: .leading, relatedBy: .equal, toItem: leftView, attribute: .leading, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: leftBackgroundView, attribute: .trailing, relatedBy: .equal, toItem: leftView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: leftBackgroundView, attribute: .top, relatedBy: .equal, toItem: leftView, attribute: .top, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: leftBackgroundView, attribute: .bottom, relatedBy: .equal, toItem: leftView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
             
-            leftView?.bringSubviewToFront(leftBackgroundView)
+            leftView?.sendSubviewToBack(leftBackgroundView)
         }
 	}
 
