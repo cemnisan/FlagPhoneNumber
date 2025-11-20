@@ -54,6 +54,8 @@ open class FPNTextField: UITextField {
 			phoneCodeTextField.textColor = textColor
 		}
 	}
+    
+    open var shouldAddLeftBackgroundView: Bool?
 
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         super.textRect(forBounds: bounds)
@@ -69,12 +71,14 @@ open class FPNTextField: UITextField {
         super.editingRect(forBounds: bounds)
         return bounds.inset(by: padding)
     }
+    
 	/// Present in the placeholder an example of a phone number according to the selected country code.
 	/// If false, you can set your own placeholder. Set to true by default.
 	@objc open var hasPhoneNumberExample: Bool = true {
 		didSet {
 			if hasPhoneNumberExample == false {
 				placeholder = nil
+                return
 			}
 			updatePlaceholder()
 		}
@@ -100,6 +104,16 @@ open class FPNTextField: UITextField {
 
 	@objc open var displayMode: FPNDisplayMode = .picker
 
+    
+    open lazy var leftBackgroundView: UIView = {
+        let view =  UIView()
+        view.backgroundColor = #colorLiteral(red: 0.570460856, green: 0.570460856, blue: 0.570460856, alpha: 1)
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
 	init() {
 		super.init(frame: .zero)
 
@@ -152,6 +166,7 @@ open class FPNTextField: UITextField {
 	}
 
 	private func setupLeftView() {
+        
 		leftView = UIView()
 		leftViewMode = .always
 		if #available(iOS 9.0, *) {
@@ -175,6 +190,17 @@ open class FPNTextField: UITextField {
 		NSLayoutConstraint(item: phoneCodeTextField, attribute: .trailing, relatedBy: .equal, toItem: leftView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
 		NSLayoutConstraint(item: phoneCodeTextField, attribute: .top, relatedBy: .equal, toItem: leftView, attribute: .top, multiplier: 1, constant: 0).isActive = true
 		NSLayoutConstraint(item: phoneCodeTextField, attribute: .bottom, relatedBy: .equal, toItem: leftView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        
+        if shouldAddLeftBackgroundView == true {
+            leftView?.addSubview(leftBackgroundView)
+            
+            NSLayoutConstraint(item: leftBackgroundView, attribute: .leading, relatedBy: .equal, toItem: leftView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: leftBackgroundView, attribute: .trailing, relatedBy: .equal, toItem: leftView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: leftBackgroundView, attribute: .top, relatedBy: .equal, toItem: leftView, attribute: .top, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: leftBackgroundView, attribute: .bottom, relatedBy: .equal, toItem: leftView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+            
+            leftView?.bringSubviewToFront(leftBackgroundView)
+        }
 	}
 
 	open override func updateConstraints() {
@@ -193,7 +219,8 @@ open class FPNTextField: UITextField {
 		return newRect
 	}
 
-	@objc private func displayNumberKeyBoard() {
+	@objc
+    private func displayNumberKeyBoard() {
 		switch displayMode {
 		case .picker:
 			tintColor = .gray
@@ -205,7 +232,8 @@ open class FPNTextField: UITextField {
 		}
 	}
 
-	@objc private func displayCountries() {
+	@objc
+    private func displayCountries() {
 		switch displayMode {
 		case .picker:
 			pickerView.setup(repository: countryRepository)
@@ -297,7 +325,6 @@ open class FPNTextField: UITextField {
 	/// Set the country image according to country code. Example "FR"
 	@objc open func setFlag(key: FPNOBJCCountryKey) {
 		if let code = FPNOBJCCountryCode[key], let countryCode = FPNCountryCode(rawValue: code) {
-
 			setFlag(countryCode: countryCode)
 		}
 	}
