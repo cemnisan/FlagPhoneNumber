@@ -11,7 +11,7 @@ import UIKit
 open class FPNTextField: UITextField {
 
 	/// The size of the flag button
-	@objc open var flagButtonSize: CGSize = CGSize(width: 32, height: 32) {
+	@objc open var flagButtonSize: CGSize = CGSize(width: 44, height: 44) {
 		didSet {
 			layoutIfNeeded()
 		}
@@ -158,6 +158,8 @@ open class FPNTextField: UITextField {
 
 	private func setupFlagButton() {
 		flagButton.imageView?.contentMode = .scaleAspectFit
+        flagButton.contentVerticalAlignment = .fill
+        flagButton.contentHorizontalAlignment = .fill
 		flagButton.accessibilityLabel = "flagButton"
 		flagButton.addTarget(self, action: #selector(displayCountries), for: .touchUpInside)
 		flagButton.translatesAutoresizingMaskIntoConstraints = false
