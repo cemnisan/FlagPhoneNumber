@@ -29,8 +29,8 @@ open class FPNTextField: UITextField {
 
 	/// The size of the leftView
 	private var leftViewSize: CGSize {
-        let width = flagButtonSize.width + getWidth(text: phoneCodeTextField.text!) + ((shouldAddLeftBackgroundView == true) ? 27 : 0)
-		let height = bounds.height - 8
+        let width = flagButtonSize.width + getWidth(text: phoneCodeTextField.text!) + ((shouldAddLeftBackgroundView == true) ? 30 : 0)
+		let height = bounds.height
 
 		return CGSize(width: width, height: height)
 	}
@@ -204,8 +204,8 @@ open class FPNTextField: UITextField {
         NSLayoutConstraint(item: flagButton, attribute: .leading, relatedBy: .equal, toItem: leftView, attribute: .leading, multiplier: 1, constant: 0).isActive = true
 
         NSLayoutConstraint(item: phoneCodeTextField, attribute: .leading, relatedBy: .equal, toItem: flagButton, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-		NSLayoutConstraint(item: phoneCodeTextField, attribute: .top, relatedBy: .equal, toItem: leftView, attribute: .top, multiplier: 1, constant: 0).isActive = true
-		NSLayoutConstraint(item: phoneCodeTextField, attribute: .bottom, relatedBy: .equal, toItem: leftView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+		NSLayoutConstraint(item: phoneCodeTextField, attribute: .top, relatedBy: .equal, toItem: leftView, attribute: .top, multiplier: 1, constant: -4).isActive = true
+		NSLayoutConstraint(item: phoneCodeTextField, attribute: .bottom, relatedBy: .equal, toItem: leftView, attribute: .bottom, multiplier: 1, constant: -4).isActive = true
         
         
         if shouldAddLeftBackgroundView == true {
@@ -217,7 +217,7 @@ open class FPNTextField: UITextField {
             NSLayoutConstraint(item: leftBackgroundView, attribute: .top, relatedBy: .equal, toItem: leftView, attribute: .top, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: leftBackgroundView, attribute: .bottom, relatedBy: .equal, toItem: leftView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
             
-			NSLayoutConstraint(item: arrowImageView, attribute: .trailing, relatedBy: .equal, toItem: leftBackgroundView, attribute: .trailing, multiplier: 1, constant: -12).isActive = true
+			NSLayoutConstraint(item: arrowImageView, attribute: .trailing, relatedBy: .equal, toItem: leftBackgroundView, attribute: .trailing, multiplier: 1, constant: -6).isActive = true
 			NSLayoutConstraint(item: arrowImageView, attribute: .centerY, relatedBy: .equal, toItem: leftBackgroundView, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
 			NSLayoutConstraint(item: arrowImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 12).isActive = true
 			NSLayoutConstraint(item: arrowImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 6).isActive = true
