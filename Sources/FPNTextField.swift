@@ -29,7 +29,7 @@ open class FPNTextField: UITextField {
 
 	/// The size of the leftView
 	private var leftViewSize: CGSize {
-		let width = flagButtonSize.width + getWidth(text: phoneCodeTextField.text!) + 10
+		let width = flagButtonSize.width + getWidth(text: phoneCodeTextField.text!) + 10 + 10 + 5
 		let height = bounds.height
 
 		return CGSize(width: width, height: height)
@@ -119,6 +119,14 @@ open class FPNTextField: UITextField {
         return view
     }()
     
+    open lazy var arrowImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "arrow")
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
 	init() {
 		super.init(frame: .zero)
 
@@ -192,22 +200,30 @@ open class FPNTextField: UITextField {
 		flagHeightConstraint?.isActive = true
 
 		NSLayoutConstraint(item: flagButton, attribute: .centerY, relatedBy: .equal, toItem: leftView, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: flagButton, attribute: .leading, relatedBy: .equal, toItem: leftView, attribute: .leading, multiplier: 1, constant: 5).isActive = true
+        NSLayoutConstraint(item: flagButton, attribute: .leading, relatedBy: .equal, toItem: leftView, attribute: .leading, multiplier: 1, constant: 0).isActive = true
 
         NSLayoutConstraint(item: phoneCodeTextField, attribute: .leading, relatedBy: .equal, toItem: flagButton, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-		NSLayoutConstraint(item: phoneCodeTextField, attribute: .trailing, relatedBy: .equal, toItem: leftView, attribute: .trailing, multiplier: 1, constant: -5).isActive = true
 		NSLayoutConstraint(item: phoneCodeTextField, attribute: .top, relatedBy: .equal, toItem: leftView, attribute: .top, multiplier: 1, constant: 0).isActive = true
 		NSLayoutConstraint(item: phoneCodeTextField, attribute: .bottom, relatedBy: .equal, toItem: leftView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
         
+        
         if shouldAddLeftBackgroundView == true {
             leftView?.addSubview(leftBackgroundView)
-            
+            leftView?.addSubview(arrowImageView)
+
             NSLayoutConstraint(item: leftBackgroundView, attribute: .leading, relatedBy: .equal, toItem: leftView, attribute: .leading, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: leftBackgroundView, attribute: .trailing, relatedBy: .equal, toItem: leftView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: leftBackgroundView, attribute: .top, relatedBy: .equal, toItem: leftView, attribute: .top, multiplier: 1, constant: 0).isActive = true
             NSLayoutConstraint(item: leftBackgroundView, attribute: .bottom, relatedBy: .equal, toItem: leftView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
             
+			NSLayoutConstraint(item: arrowImageView, attribute: .leading, relatedBy: .equal, toItem: phoneCodeTextField, attribute: .trailing, multiplier: 1, constant: 5).isActive = true
+			NSLayoutConstraint(item: arrowImageView, attribute: .centerY, relatedBy: .equal, toItem: leftView, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+			NSLayoutConstraint(item: arrowImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 10).isActive = true
+			NSLayoutConstraint(item: arrowImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 6).isActive = true
+        
+
             leftView?.sendSubviewToBack(leftBackgroundView)
+			leftView?.sendSubviewToBack(arrowImageView)
         }
 	}
 
