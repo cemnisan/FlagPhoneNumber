@@ -225,6 +225,14 @@ open class FPNTextField: UITextField {
 
             leftView?.sendSubviewToBack(leftBackgroundView)
             leftBackgroundView.bringSubviewToFront(arrowImageView)
+            
+            let tapRecogniser = UITapGestureRecognizer(
+                target: self,
+                action: #selector(displayCountries)
+            )
+            tapRecogniser.numberOfTapsRequired = 1
+            tapRecogniser.numberOfTouchesRequired = 1
+            leftBackgroundView.addGestureRecognizer(tapRecogniser)
         }
 	}
 
